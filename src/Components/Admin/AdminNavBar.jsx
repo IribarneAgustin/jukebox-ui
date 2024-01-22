@@ -17,7 +17,7 @@ export default function AdminNavBar({ setCurrentSection }) {
   const handleLogout = useLogout();
 
   const navigation = [
-    { name: 'JUKEBOX APP - PANEL DE ADMINISTRADOR', href: '/admin/dashboard', current: false },
+    { name: 'BarPlay App - ADMINISTRADOR', href: '/admin/dashboard', current: false },
   ];
 
   const onLogoutClick = () => {
@@ -118,7 +118,7 @@ export default function AdminNavBar({ setCurrentSection }) {
                     <img
                       className="h-8 w-auto cursor-pointer"
                       src={logo}
-                      alt="JukeboxApp"
+                      alt="BarPlayApp"
                     />
                   </Link>
                 </div>
@@ -157,7 +157,7 @@ export default function AdminNavBar({ setCurrentSection }) {
                 </button>
                 {notificationListVisible && notifications && notifications.length > 0 && (
                   <div
-                    className="absolute right-0 mt-2 top-8 w-60 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="absolute right-0 mt-2 top-8 w-60 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
                     onClick={handleNotificationClick}
                   >
                     {notifications.map((notification, index) => (

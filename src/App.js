@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MusicSearch from './Components/User/MusicSearch'
+import MusicSearch from './Components/User/MusicSearchAuto'
 import TrackQueue from './Components/User/TrackQueue'
 import LoginForm from './Components/Admin/LoginForm'
 import authValidation from './Components/Utils/AuthValidation';

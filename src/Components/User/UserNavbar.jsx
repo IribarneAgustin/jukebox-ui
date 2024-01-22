@@ -5,7 +5,7 @@ import logo from "../../Assets/logo.png"
 import { Link } from 'react-router-dom';
 
 const navigation = [
-  { name: 'JukeboxApp', href: '/', current: false },
+  { name: 'BarPlay', href: '/', current: false },
   { name: 'Últimas Agregadas', href: '/track/queue', current: false },
 ];
 

@@ -9,6 +9,7 @@ import SettingsPlaylistIdSection from './SettingsPlaylistIDSection';
 import PaymentHistorySection from './PaymentHistorySection';
 import SettingsEnableSection from './SettingsEnableSection'
 import SupportSection from './SupportSection'
+import SettingsMercadoPagoSection from './SettingsMercadoPagoSection'
 
 
 const AdminPanel = () => {
@@ -32,6 +33,8 @@ const AdminPanel = () => {
                 return <SettingsEnableSection />
             case 'SupportSection':
                  return <SupportSection />
+            case 'SettingsMercadoPagoSection':
+                 return <SettingsMercadoPagoSection />
             default:
                 return null;
         }

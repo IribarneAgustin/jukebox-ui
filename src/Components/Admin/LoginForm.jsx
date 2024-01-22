@@ -68,7 +68,7 @@ const LoginForm = () => {
           </div>
         )}
         <div className="bg-white bg-opacity-80 p-6 rounded-md shadow-lg hover:shadow-xl transition duration-300">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">JukeboxApp</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">BarPlay App</h2>
           <input
             type="text"
             placeholder="Username"

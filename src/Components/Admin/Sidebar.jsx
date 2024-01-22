@@ -22,6 +22,14 @@ const Sidebar = ({ setCurrentSection }) => {
         </li>
         <li className="mb-2">
           <button
+            onClick={() => setCurrentSection('SettingsMercadoPagoSection')}
+            className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
+          >
+            Mercado Pago
+          </button>
+        </li>
+        <li className="mb-2">
+          <button
             onClick={() => setCurrentSection('SettingsPriceSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >

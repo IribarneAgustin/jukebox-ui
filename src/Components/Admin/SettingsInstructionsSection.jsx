@@ -3,7 +3,7 @@ import React from 'react';
 const SettingsInstructionsSection = () => {
   return (
     <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">¡Bienvenido a JukeBoxApp!</h2>
+      <h2 className="text-2xl font-semibold mb-4">¡Bienvenido a BarPlay App!</h2>
 
       <p className="text-white-500 mb-6">
         A continuación, se presentan los pasos para

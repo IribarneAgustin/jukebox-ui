@@ -1,50 +1,67 @@
 import React, { useState } from 'react';
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import SearchInput from './SearchInput';
+import SearchInputAuto from './SearchInputAuto';
 import LoadingSpinner from '../Utils/LoadingSpinner'
 import UserLayout from './UserLayout';
 import { notification } from 'antd';
-import MusicList from './MusicList';
+import _debounce from 'lodash/debounce';
 
-const MusicSearch = () => {
+const MusicSearchAuto = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [tracks, setTracks] = useState([]);
   const [preferenceId, setPreferenceId] = useState();
   const [loading, setLoading] = useState(false);
-  const [purchaseInProgress, setPurchaseInProgress] = useState(false); //avoid multiples requests
+  const [purchaseInProgress, setPurchaseInProgress] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
 
-  initMercadoPago("TEST-c2a8b2c6-e634-44b6-b5af-7b150e92222f"); //TODO get it form server
-
-  const searchMusic = async () => {
+  initMercadoPago("TEST-c2a8b2c6-e634-44b6-b5af-7b150e92222f");
+  const searchMusic = async (value) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/spotify/track/name=${searchQuery}`);
+      const response = await fetch(`/api/spotify/track/${searchQuery}`);
       const data = await response.json();
 
-      if (response.ok && data && data.tracks && data.tracks.items) {
-        const sortedTracks = data.tracks.items.sort((a, b) => b.popularity - a.popularity);
-        const topTracksCount = 10;
-        const relevantTracks = sortedTracks.slice(0, topTracksCount);
-        setTracks(relevantTracks);
+  
+      if (response.ok) {
+  
+        setSuggestions(data);
       } else {
         throw new Error('Error fetching music');
       }
     } catch (error) {
       console.error('Error fetching music:', error);
       notification.error({
-        message: 'Ocurrió un error inesperado. Por favor intente más tarde'
+        message: 'Ocurrió un error inesperado. Por favor intente más tarde',
       });
     } finally {
       setLoading(false);
     }
   };
+  
+  
+  
+  
+  
+  
+
+const debouncedSearchMusic = _debounce(searchMusic, 600);
+
+const onSuggestionsFetchRequested = ({ value }) => {
+  if (value.length > 3) {
+    debouncedSearchMusic(value);
+  }
+};
+
+
+  const onSuggestionsClearRequested = () => {
+    setSuggestions([]);
+  };
 
   const createPreference = async (track) => {
     const trackInfoDTO = {
-      trackUri: track.uri,
-      trackName: track.name,
-      artistName: track.artists[0].name,
-      albumCover: track.album.images[0].url
+      trackUri: track.trackUri,
+      trackName: track.trackName,
+      artistName: track.artistName,
+      albumCover: track.albumCover
     };
 
     try {
@@ -81,21 +98,20 @@ const MusicSearch = () => {
     }
   };
 
-  const handleBuy = async (track) => {
+  const handleBuy = async (suggestion) => {
+    console.log(suggestion)
     if (purchaseInProgress) {
-      // If purchase is already in progress, do nothing
       return;
     }
     setPurchaseInProgress(true);
-    
+  
     try {
-      const id = await createPreference(track);
-
+      const id = await createPreference(suggestion);
+  
       if (id) {
         setPreferenceId(id);
         const paymentUrl = `https://www.mercadopago.com.ar/checkout/v1/redirect?preference_id=${id}`;
         window.location.href = paymentUrl;
-
       }
     } finally {
       setPurchaseInProgress(false);
@@ -107,30 +123,34 @@ const MusicSearch = () => {
       <UserLayout>
         <div className="container mx-auto my-8 text-center">
           <h1 className="text-5xl font-extrabold mb-4 custom-bounce">BarPlay App</h1>
-
+  
           <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-md shadow-lg hover:shadow-xl transition duration-300">
-            <SearchInput
+            <SearchInputAuto
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
-              onSearch={searchMusic}
+              suggestions={suggestions}
+              onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={onSuggestionsClearRequested}
+              onBuy={handleBuy}
             />
           </div>
-
+  
           {loading && <LoadingSpinner />}
-
-          {!loading && (
-            <MusicList tracks={tracks} onBuy={handleBuy} />
-          )}
-
+  
           {preferenceId && (
             <div className="mt-6">
               <Wallet initialization={{ preferenceId }} />
             </div>
           )}
+  
+          {suggestions.length === 0 && searchQuery.length > 3 && (
+            <p className="text-gray-500 mt-4">No se encontraron resultados.</p>
+          )}
         </div>
       </UserLayout>
     </div>
   );
+  
 };
 
-export default MusicSearch;
+export default MusicSearchAuto;

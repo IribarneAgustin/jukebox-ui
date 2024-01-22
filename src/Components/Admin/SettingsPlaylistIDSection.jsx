@@ -85,7 +85,7 @@ const SettingsPlaylistIdSection = () => {
       <h2 className="text-2xl font-semibold mb-4">Conexión con Spotify</h2>
 
       <p className="mb-4">
-        Para conectar tu cuenta de Spotify con JukeboxApp, necesitamos el ID de tu lista de reproducción. Sigue estos pasos sencillos:
+        Para conectar tu cuenta de Spotify con BarPlay App, necesitamos el ID de tu lista de reproducción. Sigue estos pasos sencillos:
       </p>
 
       <ol className="mb-4">
