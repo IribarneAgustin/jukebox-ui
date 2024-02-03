@@ -13,16 +13,14 @@ const MusicSearchAuto = () => {
   const [purchaseInProgress, setPurchaseInProgress] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
-  initMercadoPago("TEST-c2a8b2c6-e634-44b6-b5af-7b150e92222f");
+
+  initMercadoPago("TEST-c2a8b2c6-e634-44b6-b5af-7b150e92222f"); //TODO get it from server
   const searchMusic = async (value) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/spotify/track/${searchQuery}`);
+      const response = await fetch(`/api/spotify/track/${value}`);
       const data = await response.json();
-
-  
       if (response.ok) {
-  
         setSuggestions(data);
       } else {
         throw new Error('Error fetching music');
@@ -36,20 +34,15 @@ const MusicSearchAuto = () => {
       setLoading(false);
     }
   };
-  
-  
-  
-  
-  
-  
 
-const debouncedSearchMusic = _debounce(searchMusic, 600);
 
-const onSuggestionsFetchRequested = ({ value }) => {
-  if (value.length > 3) {
-    debouncedSearchMusic(value);
-  }
-};
+  const debouncedSearchMusic = _debounce(searchMusic, 600);
+
+  const onSuggestionsFetchRequested = ({ value }) => {
+    if (value.length > 3) {
+        debouncedSearchMusic(value);
+    }
+  };
 
 
   const onSuggestionsClearRequested = () => {
@@ -58,7 +51,7 @@ const onSuggestionsFetchRequested = ({ value }) => {
 
   const createPreference = async (track) => {
     const trackInfoDTO = {
-      trackUri: track.trackUri,
+      trackUri: track.spotifyURI,
       trackName: track.trackName,
       artistName: track.artistName,
       albumCover: track.albumCover
@@ -104,10 +97,10 @@ const onSuggestionsFetchRequested = ({ value }) => {
       return;
     }
     setPurchaseInProgress(true);
-  
+
     try {
       const id = await createPreference(suggestion);
-  
+
       if (id) {
         setPreferenceId(id);
         const paymentUrl = `https://www.mercadopago.com.ar/checkout/v1/redirect?preference_id=${id}`;
@@ -123,7 +116,7 @@ const onSuggestionsFetchRequested = ({ value }) => {
       <UserLayout>
         <div className="container mx-auto my-8 text-center">
           <h1 className="text-5xl font-extrabold mb-4 custom-bounce">BarPlay App</h1>
-  
+
           <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-md shadow-lg hover:shadow-xl transition duration-300">
             <SearchInputAuto
               searchQuery={searchQuery}
@@ -134,15 +127,15 @@ const onSuggestionsFetchRequested = ({ value }) => {
               onBuy={handleBuy}
             />
           </div>
-  
+
           {loading && <LoadingSpinner />}
-  
+
           {preferenceId && (
             <div className="mt-6">
               <Wallet initialization={{ preferenceId }} />
             </div>
           )}
-  
+
           {suggestions.length === 0 && searchQuery.length > 3 && (
             <p className="text-gray-500 mt-4">No se encontraron resultados.</p>
           )}
@@ -150,7 +143,7 @@ const onSuggestionsFetchRequested = ({ value }) => {
       </UserLayout>
     </div>
   );
-  
+
 };
 
 export default MusicSearchAuto;

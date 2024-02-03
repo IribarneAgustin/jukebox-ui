@@ -99,7 +99,10 @@ const SettingsPriceSection = () => {
         </div>
       </form>
       <p className="text-gray-500 text-sm mt-2 italic">
-        La moneda a considerar será la que se encuentra configurada en el medio de pago.
+        *La moneda a considerar será la que se encuentra configurada en el medio de pago.
+      </p>
+      <p className="text-gray-500 text-sm mt-2 italic">
+        *Se aplicará una tarifa de servicio.
       </p>
     </section>
   );

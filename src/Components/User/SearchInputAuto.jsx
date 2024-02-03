@@ -31,7 +31,7 @@ const SearchInputAuto = ({
         {suggestion.length === 0 ? (
           <div className="font-bold text-xl mb-1">No se encontraron resultados</div>
         ) : (
-          <div className="font-bold text-xl mb-1">{suggestion.trackName} - {suggestion.artistName}</div>
+          <div className="font-bold text-xl mb-1">{suggestion.artistName} - {suggestion.trackName}</div>
         )}
       </div>
     </li>

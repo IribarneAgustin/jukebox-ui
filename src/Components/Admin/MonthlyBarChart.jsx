@@ -30,14 +30,14 @@ const MonthlyBarChart = () => {
           const existingEntry = result.totalAmountByMonth.find(entry => entry.month === monthIndex + 1);
           return {
             month: monthIndex + 1,
-            Ganancias: existingEntry ? existingEntry.total_Amount : 0,
+            Facturado: existingEntry ? existingEntry.total_Amount : 0,
           };
         });
 
         setData(processedData);
 
         // Calculate the total amount for display in the title
-        const total = processedData.reduce((acc, entry) => acc + entry.Ganancias, 0);
+        const total = processedData.reduce((acc, entry) => acc + entry.Facturado, 0);
         setTotalAmount(total);
       } else {
         console.error(`Failed to fetch total amount for year ${year}`);
@@ -64,7 +64,7 @@ const MonthlyBarChart = () => {
   return (
     <div style={{ textAlign: 'center'}}>
       <h2 style={{ marginBottom: '20px', fontSize: '32px', fontWeight: 'bold', color: 'white' }}>
-        Ganancia Anual: $ {totalAmount.toFixed(2)}
+        Facturación Acumulada Anual: $ {totalAmount.toFixed(2)}
       </h2>
       <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <button style={buttonStyle} onClick={handlePrevYear}>&lt;</button>
@@ -80,7 +80,7 @@ const MonthlyBarChart = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Ganancias" fill="#8884d8" />
+          <Bar dataKey="Facturado" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
     </div>
