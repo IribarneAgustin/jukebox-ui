@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminNavBar from './AdminNavBar';
 import Sidebar from './Sidebar';
 import SettingStatisticsSection from './SettingsStatisticsSection';
@@ -10,10 +10,31 @@ import PaymentHistorySection from './PaymentHistorySection';
 import SettingsEnableSection from './SettingsEnableSection'
 import SupportSection from './SupportSection'
 import SettingsMercadoPagoSection from './SettingsMercadoPagoSection'
-
+import { useLocation } from 'react-router-dom';
+import { notification } from 'antd';
 
 const AdminPanel = () => {
     const [currentSection, setCurrentSection] = useState('SettingsInstructionsSection');
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const errorMessage = queryParams.get('error');
+    const successMessage = queryParams.get('message');
+  
+    useEffect(() => {
+      if (errorMessage) {
+        // Display error notification
+        notification.error({
+          message: 'Error',
+          description: errorMessage,
+        });
+      } else if (successMessage) {
+        // Display success notification
+        notification.success({
+          message: 'OK',
+          description: successMessage,
+        });
+      }
+    }, [errorMessage, successMessage]);
 
     const renderSection = () => {
         switch (currentSection) {

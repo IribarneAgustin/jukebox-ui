@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import backgroundImage from '../../Assets/loginBackground.jpg';
+import backgroundImage from '../../Assets/login-form-background.jpg';
 import {API_BASE_URL} from '../Utils/Config';
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({

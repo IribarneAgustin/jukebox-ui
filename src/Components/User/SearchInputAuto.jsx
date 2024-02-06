@@ -17,13 +17,13 @@ const SearchInputAuto = ({
     placeholder: 'Buscá una canción...',
     value: searchQuery,
     onChange: handleOnChange,
-    className: 'border border-gray-700 rounded-md p-2 w-full lg:w-96 mb-4 bg-gray-600 focus:outline-none focus:border-blue-500',
+    className: 'border border-purple-700 rounded-md p-2 w-full lg:w-96 mb-4 bg-gray-800 focus:outline-none focus:border-blue-500',
   };
 
   const renderSuggestion = (suggestion) => (
     <li
       key={suggestion.trackName}
-      className="max-w-md rounded overflow-hidden shadow-lg bg-gray-800 text-white cursor-pointer mb-2 flex items-center"
+      className="max-w-md rounded overflow-hidden shadow-lg bg-gradient-to-br from-purple-950 to-purple-900 text-white cursor-pointer mb-2 flex items-center"
       onClick={() => onBuy(suggestion)}
     >
       <img className="w-16 h-16 object-cover" src={suggestion.albumCover} alt={suggestion.trackName} />

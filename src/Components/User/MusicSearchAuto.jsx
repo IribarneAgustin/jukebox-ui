@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { Wallet } from "@mercadopago/sdk-react";
 import SearchInputAuto from './SearchInputAuto';
 import LoadingSpinner from '../Utils/LoadingSpinner'
 import UserLayout from './UserLayout';
@@ -14,7 +14,6 @@ const MusicSearchAuto = () => {
   const [suggestions, setSuggestions] = useState([]);
 
 
-  initMercadoPago("TEST-c2a8b2c6-e634-44b6-b5af-7b150e92222f"); //TODO get it from server
   const searchMusic = async (value) => {
     try {
       setLoading(true);
@@ -39,7 +38,7 @@ const MusicSearchAuto = () => {
   const debouncedSearchMusic = _debounce(searchMusic, 600);
 
   const onSuggestionsFetchRequested = ({ value }) => {
-    if (value.length > 3) {
+    if (value.length > 2) {
         debouncedSearchMusic(value);
     }
   };
@@ -56,15 +55,19 @@ const MusicSearchAuto = () => {
       artistName: track.artistName,
       albumCover: track.albumCover
     };
-
+    const paymentGateway = "Mercado Pago";
     try {
-      const response = await fetch("api/payment/generatePaymentId", {
+      const response = await fetch("/api/payment/id", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(trackInfoDTO),
+        body: JSON.stringify({
+          trackInfoDTO: { ...trackInfoDTO },
+          paymentGateway: paymentGateway,
+        }),
       });
+  
 
       if (response.ok) {
         return response.text();
@@ -117,7 +120,7 @@ const MusicSearchAuto = () => {
         <div className="container mx-auto my-8 text-center">
           <h1 className="text-5xl font-extrabold mb-4 custom-bounce">BarPlay App</h1>
 
-          <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-md shadow-lg hover:shadow-xl transition duration-300">
+          <div className="max-w-md mx-auto p-6 transition duration-300"> {/*bg-gradient-to-br from-purple-950 to-purple-800 rounded-md shadow-lg hover:shadow-xl */}
             <SearchInputAuto
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
@@ -137,7 +140,7 @@ const MusicSearchAuto = () => {
           )}
 
           {suggestions.length === 0 && searchQuery.length > 3 && (
-            <p className="text-gray-500 mt-4">No se encontraron resultados.</p>
+            <p className="text-white-800 mt-4">No se encontraron resultados.</p>
           )}
         </div>
       </UserLayout>

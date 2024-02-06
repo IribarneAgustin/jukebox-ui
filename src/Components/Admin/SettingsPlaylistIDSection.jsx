@@ -84,8 +84,16 @@ const SettingsPlaylistIdSection = () => {
     <section className="mb-8">
       <h2 className="text-2xl font-semibold mb-4">Conexión con Spotify</h2>
 
+
       <p className="mb-4">
-        Para conectar tu cuenta de Spotify con BarPlay App, necesitamos el ID de tu lista de reproducción. Sigue estos pasos sencillos:
+        Nuestro equipo te enviará un mail para vincular tu cuenta de spotify, donde una vez que aceptes los permisos, tu cuenta ya esta lista para recibir las canciones. Es importante que sea una cuenta con plan PREMIUM. 
+      </p>
+      <p className="mb-4">
+        Cada vez que un usuario pague por una canción, esta sera enviada directamente a la cola de reproducción.
+      </p>
+
+      <p className="mb-4">
+        Adicionalmente si deseas vincular una playlist especial para la Aplicación, donde se guardarán todas las canciones solicitadas por los usuarios podes seguir los siguientes:
       </p>
 
       <ol className="mb-4">
@@ -112,7 +120,9 @@ const SettingsPlaylistIdSection = () => {
           Guardar
         </button>
       </form>
+
     </section>
+
   );
 };
 

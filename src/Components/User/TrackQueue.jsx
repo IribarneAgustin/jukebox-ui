@@ -32,11 +32,11 @@ const TrackQueue = () => {
   }, []);
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="bg-opacity-70 text-white min-h-screen">
       <UserLayout>
         <div className="container mx-auto my-8 text-center">
           <h1 className="text-4xl font-bold mb-4">Últimas canciones agregadas</h1>
-          <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-md shadow-lg hover:shadow-xl transition duration-300">
+          <div className="max-w-md mx-auto bg-purple-950 bg-opacity-85 p-6 rounded-md shadow-lg hover:shadow-xl transition duration-300"> 
             <ul className="list-none p-0 m-0">
               {enqueuedTracks.map((track) => (
                 <li key={track.addedAt} className="border-b border-gray-700 py-2">
@@ -48,11 +48,11 @@ const TrackQueue = () => {
                         className="w-10 h-10 object-cover mr-4"
                       />
                       <div>
-                        <h3 className="text-lg font-semibold">{track.trackName}</h3>
-                        <p className="text-gray-400">{track.artistName}</p>
+                        <h3 className="font-semibold">
+                          {track.artistName} - {track.trackName}
+                        </h3>
                       </div>
                     </div>
-                    <p className="text-gray-400">{new Date(track.addedAt).toLocaleTimeString()}</p>
                   </div>
                 </li>
               ))}
