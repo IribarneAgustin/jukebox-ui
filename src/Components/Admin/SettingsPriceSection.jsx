@@ -72,7 +72,7 @@ const SettingsPriceSection = () => {
     };
 
     fetchTrackPrice();
-  }, []); // Empty dependency array ensures that this effect runs only once on component mount
+  }, [handleLogout]);
 
   return (
     <section className="mb-8">
@@ -98,12 +98,13 @@ const SettingsPriceSection = () => {
           </button>
         </div>
       </form>
-      <p className="text-gray-500 text-sm mt-2 italic">
-        *Se aplicará una tarifa de servicio.
+      <p className="text-white text-sm mt-2 italic">
+        *Se aplicará una tarifa de servicio por transacción. Además la billetera virtual puede cobrar comisiones según el medio de pago empleado.
       </p>
-      <p className="text-gray-500 text-sm mt-2 italic">
+      <p className="text-white text-sm mt-2 italic">
         *La moneda a considerar será la que se encuentra configurada en el medio de pago.
       </p>
+
     </section>
   );
 };

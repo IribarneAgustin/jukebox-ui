@@ -19,21 +19,21 @@ const AdminPanel = () => {
     const queryParams = new URLSearchParams(location.search);
     const errorMessage = queryParams.get('error');
     const successMessage = queryParams.get('message');
-  
+
     useEffect(() => {
-      if (errorMessage) {
-        // Display error notification
-        notification.error({
-          message: 'Error',
-          description: errorMessage,
-        });
-      } else if (successMessage) {
-        // Display success notification
-        notification.success({
-          message: 'OK',
-          description: successMessage,
-        });
-      }
+        if (errorMessage) {
+            // Display error notification
+            notification.error({
+                message: 'Error',
+                description: errorMessage,
+            });
+        } else if (successMessage) {
+            // Display success notification
+            notification.success({
+                message: 'OK',
+                description: successMessage,
+            });
+        }
     }, [errorMessage, successMessage]);
 
     const renderSection = () => {
@@ -53,9 +53,9 @@ const AdminPanel = () => {
             case 'SettingsEnableSection':
                 return <SettingsEnableSection />
             case 'SupportSection':
-                 return <SupportSection />
+                return <SupportSection />
             case 'SettingsMercadoPagoSection':
-                 return <SettingsMercadoPagoSection />
+                return <SettingsMercadoPagoSection />
             default:
                 return null;
         }
@@ -67,14 +67,13 @@ const AdminPanel = () => {
             <AdminNavBar setCurrentSection={setCurrentSection} />
             <div className="bg-gray-800 h-screen text-white font-sans">
 
-
                 {/* Main Content */}
                 <div className="flex h-full">
                     {/* Sidebar */}
                     <Sidebar setCurrentSection={setCurrentSection} />
 
                     {/* Main Content Area */}
-                    <div className="w-3/4 p-4">
+                    <div className="w-full md:w-3/4 p-4 overflow-x-auto">
                         {renderSection()}
                     </div>
                 </div>

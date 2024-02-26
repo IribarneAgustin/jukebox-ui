@@ -40,21 +40,21 @@ const SettingsMercadoPagoSection = () => {
       <h2 className="text-2xl font-semibold mb-4">Conexión con Mercado Pago</h2>
 
       <p className="mb-4">
-        Para recibir los pagos en tu cuenta de Mercado Pago, debes estar logueado{' '}
+        Para recibir los pagos en tu cuenta, debes estar logueado en{' '}
         <a href="https://www.mercadopago.com/" className="text-blue-500 underline" target='_blank'>
-          aquí
+          Mercado Pago
         </a>{' '}
-        y luego presionar el siguiente botón para vincularla con la aplicación:
+        y luego presionar el siguiente botón para vincularla con JBox App:
       </p>
-
       <button
         type="button"
         onClick={connectWithMercadoPago}
-        className={`mt-4 bg-blue-500 text-white p-2 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`mt-4 bg-blue-500 text-white p-2 mb-3 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
         disabled={loading}
       >
         {loading ? 'Conectando...' : 'Conectar con Mercado Pago'}
       </button>
+
     </section>
   );
 

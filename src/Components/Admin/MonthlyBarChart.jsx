@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import useLogout from '../Admin/Logout'
+import useLogout from '../Admin/Logout';
 
 const MonthlyBarChart = () => {
   const [data, setData] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const handleLogout = useLogout();
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const fetchYearData = async (year) => {
     try {
-      const response = await fetch(`/api/transaction/get/amountByYear/${year}`, {  
+      const response = await fetch(`/api/transaction/get/amountByYear/${year}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -59,43 +59,66 @@ const MonthlyBarChart = () => {
     fetchYearData(currentYear);
   }, [currentYear]);
 
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
   const monthNamesSpanish = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
   return (
-    <div style={{ textAlign: 'center'}}>
-      <h2 style={{ marginBottom: '20px', fontSize: '32px', fontWeight: 'bold', color: 'white' }}>
+    <div className="text-center">
+      <h2 className="mb-8 text-3xl font-bold text-white">
         Facturación Acumulada Anual: $ {totalAmount.toFixed(2)}
       </h2>
-      <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <button style={buttonStyle} onClick={handlePrevYear}>&lt;</button>
-        <h2 style={{ margin: '0 20px', fontSize: '24px', fontWeight: 'bold', color: 'white' }}>{currentYear}</h2>
-        <button style={buttonStyle} onClick={handleNextYear}>&gt;</button>
+      <div className="flex items-center justify-center space-x-4">
+        <button className="px-4 py-2 text-xl font-bold cursor-pointer bg-green-500 text-white rounded" onClick={handlePrevYear}>&lt;</button>
+        <h2 className="m-0 text-2xl font-bold text-white">{currentYear}</h2>
+        <button className="px-4 py-2 text-xl font-bold cursor-pointer bg-green-500 text-white rounded" onClick={handleNextYear}>&gt;</button>
       </div>
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" tickFormatter={(month) => monthNamesSpanish[month - 1]} />
 
+      {/* Web Graph */}
+      {!isMobile && (
+        <div className="hidden md:block">
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" tickFormatter={(month) => monthNamesSpanish[month - 1]} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Facturado" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
 
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Facturado" fill="#8884d8" />
-        </BarChart>
-      </ResponsiveContainer>
+      {/* Mobile Graph */}
+      {isMobile && (
+        <div className="md:hidden">
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={data} margin={{ top: 20, bottom: 1 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Facturado" fill="#82ca9d" stackId="stack" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 };
+  
 
-const buttonStyle = {
-  padding: '10px 15px',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  cursor: 'pointer',
-  backgroundColor: '#4CAF50',
-  color: 'white',
-  border: 'none',
-  borderRadius: '5px',
-};
+
 
 export default MonthlyBarChart;

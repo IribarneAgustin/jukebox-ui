@@ -13,12 +13,6 @@ const SupportSection = () => {
           Envíenos un correo electrónico a <a className="text-blue-400" href="mailto:soporte@tudominio.com">soporte@tudominio.com</a>
         </p>
       </div>
-      <div>
-        <h3 className="text-xl font-semibold mb-2">Número de Teléfono:</h3>
-        <p>
-          Llámenos al <a className="text-blue-400" href="tel:+xxxxxxxx">+xxxxxxxx</a>
-        </p>
-      </div>
     </div>
   );
 };

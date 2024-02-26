@@ -19,7 +19,7 @@ const authValidation = (WrappedComponent) => {
 
   const checkAuthentication = async (navigate) => {
     try {
-      const response = await fetch('/api/admin/auth/test', {
+      const response = await fetch('/api/auth/test', {
         method: 'GET',
         credentials: 'include',
       });

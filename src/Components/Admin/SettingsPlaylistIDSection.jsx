@@ -82,18 +82,18 @@ const SettingsPlaylistIdSection = () => {
 
   return (
     <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">Conexión con Spotify</h2>
+      <h2 className="text-2xl font-semibold mb-4">Spotify</h2>
 
 
       <p className="mb-4">
-        Nuestro equipo te enviará un mail para vincular tu cuenta de spotify, donde una vez que aceptes los permisos, tu cuenta ya esta lista para recibir las canciones. Es importante que sea una cuenta con plan PREMIUM. 
+        Una vez logueado, su cuenta de Spotify ya está vinculada con JBox App.  
       </p>
       <p className="mb-4">
-        Cada vez que un usuario pague por una canción, esta sera enviada directamente a la cola de reproducción.
+        Cuando un cliente solicite una canción, esta será encolada y si usted desea puede guardarlas en una lista de reproducción.
       </p>
 
       <p className="mb-4">
-        Adicionalmente si deseas vincular una playlist especial para la Aplicación, donde se guardarán todas las canciones solicitadas por los usuarios podes seguir los siguientes:
+        Solo debe seguir los siguientes pasos para vincular la lista de reproducción deseada:
       </p>
 
       <ol className="mb-4">
@@ -105,7 +105,7 @@ const SettingsPlaylistIdSection = () => {
 
       <form onSubmit={handleSubmit}>
         <label className="block mb-2" htmlFor="playlistId">
-          Spotify Playlist ID:
+          Spotify Playlist:
         </label>
         <input
           type="text"

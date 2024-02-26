@@ -5,7 +5,7 @@ import logo from "../../Assets/logo.png"
 import { Link } from 'react-router-dom';
 
 const navigation = [
-  { name: 'BarPlay', href: '/', current: false },
+  { name: 'Buscar Canción', href: '/', current: false },
   { name: 'Últimas Agregadas', href: '/track/queue', current: false },
 ];
 
@@ -18,7 +18,7 @@ export default function UserNavbar() {
     <Disclosure as="nav" className="bg-opacity-70">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 relative">
+          <div className="mx-auto px-2 sm:px-6 lg:px-8 relative">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -36,9 +36,9 @@ export default function UserNavbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/">
                     <img
-                      className="h-8 w-auto cursor-pointer"
+                      className="h-8 cursor-pointer"
                       src={logo}
-                      alt="JukeboxApp"
+                      alt="JBApp"
                     />
                   </Link>
                 </div>

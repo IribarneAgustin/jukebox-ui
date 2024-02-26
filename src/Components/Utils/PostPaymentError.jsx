@@ -18,7 +18,7 @@ const PostPaymentError = () => {
 
   return (
     <UserLayout>
-      <div className="flex items-center justify-center h-screen bg-gray-900 text-white">
+      <div className="flex items-center justify-center h-screen text-white">
         <div className="bg-gray-800 p-12 rounded-md shadow-lg">
           <h2 className="text-4xl font-bold mb-6">Error inesperado</h2>
           {errorMessage && (

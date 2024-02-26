@@ -2,7 +2,7 @@ import React from 'react';
 
 const Sidebar = ({ setCurrentSection }) => {
   return (
-    <div className="w-1/4 bg-gray-900 p-4">
+    <div className="w-1/8 p-6 hidden sm:block">
       <ul>
         <li className="mb-2">
           <button

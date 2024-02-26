@@ -25,7 +25,7 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('/api/admin/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const LoginForm = () => {
 
       if (response.ok) {
         console.log('Login successful');
-        window.location.href = redirectURL;
+        //window.location.href = redirectURL;
       } else if (response.status === 401) {
         setAlertMessage('Usuario o contraseña inválidos');
       } else {
@@ -68,7 +68,7 @@ const LoginForm = () => {
           </div>
         )}
         <div className="bg-white bg-opacity-80 p-6 rounded-md shadow-lg hover:shadow-xl transition duration-300">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">BarPlay App</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">JBox App</h2>
           <input
             type="text"
             placeholder="Username"

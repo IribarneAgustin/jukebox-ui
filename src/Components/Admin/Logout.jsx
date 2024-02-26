@@ -6,7 +6,7 @@ const useLogout = () => {
 
   const handleLogout = useCallback(async () => {
     try {
-      const response = await fetch('/api/admin/logout', {
+      const response = await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include',
         headers: {

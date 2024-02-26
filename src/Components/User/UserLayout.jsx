@@ -19,7 +19,7 @@ export default function UserLayout({ children }) {
       <footer className="bg-opacity-70 p-4 text-center flex flex-col items-center">
         {/* Your footer content goes here */}
         <div>
-          &copy; {currentYear} BarPlay App - Todos los derechos reservados.
+          &copy; {currentYear} JBox App - Todos los derechos reservados.
         </div>
         <div className="flex mt-2">
           <a href="https://www.instagram.com/your_instagram_username" target="_blank" rel="noopener noreferrer">

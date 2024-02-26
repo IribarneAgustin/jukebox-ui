@@ -65,7 +65,6 @@ const SettingsScheduleSection = () => {
         } else {
           console.log(response)
           console.error('Failed to fetch service schedule');
-          openNotification('error', 'Ocurrió un error al obtener el horario de servicio');
         }
       } catch (error) {
         console.error('Error fetching service schedule:', error);
@@ -74,7 +73,7 @@ const SettingsScheduleSection = () => {
     };
 
     fetchSchedule();
-  }, []);
+  }, [handleLogout]);
 
 
   return (

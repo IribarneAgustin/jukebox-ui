@@ -88,7 +88,7 @@ const PaymentHistorySection = () => {
       <h2 className="text-2xl font-semibold mb-4">Historial de Pagos</h2>
 
       <div className="mt-4">
-        <strong>Ganancia Total: ${totalAmount.toFixed(2)}</strong>
+        <strong>Facturación Total: ${totalAmount.toFixed(2)}</strong>
       </div>
       <br></br>
       <Table
