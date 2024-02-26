@@ -37,8 +37,8 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        console.log('Login successful');
-        window.location.href = redirectURL;
+        console.log('Login successfully');
+        fetch(API_BASE_URL + '/api/spotify/login')
       } else if (response.status === 401) {
         setAlertMessage('Usuario o contraseña inválidos');
       } else {
