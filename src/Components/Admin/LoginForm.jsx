@@ -25,7 +25,7 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(API_BASE_URL + '/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const LoginForm = () => {
 
       if (response.ok) {
         console.log('Login successful');
-        //window.location.href = redirectURL;
+        window.location.href = redirectURL;
       } else if (response.status === 401) {
         setAlertMessage('Usuario o contraseña inválidos');
       } else {
