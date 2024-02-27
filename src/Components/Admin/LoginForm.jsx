@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import backgroundImage from '../../Assets/login-form-background.jpg';
-import {API_BASE_URL} from '../Utils/Config';
+import { API_BASE_URL } from '../Utils/Config';
+
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({
     username: '',
@@ -25,7 +26,7 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(API_BASE_URL + '/api/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +39,15 @@ const LoginForm = () => {
 
       if (response.ok) {
         console.log('Login successfully');
-        fetch(API_BASE_URL + '/api/spotify/login')
+        window.location.href = redirectURL.href;
+        /*try {
+          await fetch('/api/spotify/login', {
+            method: 'GET'
+          })
+        }
+        catch (error) {
+          console.log(error)
+        }*/
       } else if (response.status === 401) {
         setAlertMessage('Usuario o contraseña inválidos');
       } else {
@@ -90,6 +99,7 @@ const LoginForm = () => {
             >
               Ingresar
             </button>
+            <button onClick={() => { fetch(API_BASE_URL + '/api/spotify/login') }}>test</button>
           </div>
         </div>
       </div>
