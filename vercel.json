@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/auth/login",
+            "destination": "https://jboxapp.fly.dev/api/auth/login"
+        },
+        {
+            "source": "/api/spotify/login",
+            "destination": "https://jboxapp.fly.dev/api/spotify/login"
+        }
+    ]
+}
