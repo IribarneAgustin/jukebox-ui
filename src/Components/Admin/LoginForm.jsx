@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import backgroundImage from '../../Assets/login-form-background.jpg';
-import { API_BASE_URL } from '../Utils/Config';
 
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({
@@ -9,8 +8,6 @@ const LoginForm = () => {
   });
 
   const [alertMessage, setAlertMessage] = useState('');
-  const redirectURL = new URL('/api/spotify/login', API_BASE_URL);
-
 
   useEffect(() => {
     const getUrlParameter = (name) => {
@@ -38,16 +35,13 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
+        /*const responseData = await response.json();
+        const jwtToken = responseData.token;
+        localStorage.setItem('jwtToken', jwtToken);*/
         console.log('Login successfully');
-        window.location.href = redirectURL.href;
-        /*try {
-          await fetch('/api/spotify/login', {
-            method: 'GET'
-          })
-        }
-        catch (error) {
-          console.log(error)
-        }*/
+        //window.location.href = redirectURL.href;
+        fetchQueryParams();
+
       } else if (response.status === 401) {
         setAlertMessage('Usuario o contraseña inválidos');
       } else {
@@ -59,6 +53,27 @@ const LoginForm = () => {
       console.error('Error:', error);
     }
   };
+
+  async function fetchQueryParams() {
+    try {
+      //const jwtToken = localStorage.getItem('jwtToken');
+      const response = await fetch('/api/spotify/login', {
+        method: 'GET',
+        credentials: 'include',
+        /*headers: {
+          'Authorization': `Bearer ${jwtToken}`,
+        },*/
+      });
+  
+      const queryParams = await response.text();
+      const authorizationUrl = "https://accounts.spotify.com/authorize" + queryParams;
+
+      window.location.href = authorizationUrl;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
 
   return (
     <div
@@ -99,7 +114,6 @@ const LoginForm = () => {
             >
               Ingresar
             </button>
-            <button onClick={() => { fetch(API_BASE_URL + '/api/spotify/login') }}>test</button>
           </div>
         </div>
       </div>
