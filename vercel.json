@@ -1,12 +1,81 @@
 {
     "rewrites": [
-        {
-            "source": "/api/auth/login",
-            "destination": "https://jboxapp.fly.dev/api/auth/login"
-        },
-        {
-            "source": "/api/spotify/login",
-            "destination": "https://jboxapp.fly.dev/api/spotify/login"
-        }
+      {
+        "source": "/api/notification/get",
+        "destination": "https://jboxapp.fly.dev/api/notification/get"
+      },
+      {
+        "source": "/api/auth/login",
+        "destination": "https://jboxapp.fly.dev/api/auth/login"
+      },
+      {
+        "source": "/api/spotify/login",
+        "destination": "https://jboxapp.fly.dev/api/spotify/login"
+      },
+      {
+        "source": "/api/auth/logout",
+        "destination": "https://jboxapp.fly.dev/api/auth/logout"
+      },
+      {
+        "source": "/api/transaction/get/amountByYear/:year",
+        "destination": "https://jboxapp.fly.dev/api/transaction/get/amountByYear/:year"
+      },
+      {
+        "source": "/api/transaction/get",
+        "destination": "https://jboxapp.fly.dev/api/transaction/get"
+      },
+      {
+        "source": "/api/admin/app/set/status",
+        "destination": "https://jboxapp.fly.dev/api/admin/app/set/status"
+      },
+      {
+        "source": "/api/admin/app/get/status",
+        "destination": "https://jboxapp.fly.dev/api/admin/app/get/status"
+      },
+      {
+        "source": "/api/mp/login",
+        "destination": "https://jboxapp.fly.dev/api/mp/login"
+      },
+      {
+        "source": "/api/admin/app/playlist/id",
+        "destination": "https://jboxapp.fly.dev/api/admin/app/playlist/id"
+      },
+      {
+        "source": "/api/admin/app/get/playlist/id",
+        "destination": "https://jboxapp.fly.dev/api/admin/app/get/playlist/id"
+      },
+      {
+        "source": "/api/admin/track/price",
+        "destination": "https://jboxapp.fly.dev/api/admin/track/price"
+      },
+      {
+        "source": "/api/admin/track/get/price",
+        "destination": "https://jboxapp.fly.dev/api/admin/track/get/price"
+      },
+      {
+        "source": "/api/admin/app/schedule",
+        "destination": "https://jboxapp.fly.dev/api/admin/app/schedule"
+      },
+      {
+        "source": "/api/admin/app/get/schedule",
+        "destination": "https://jboxapp.fly.dev/api/admin/app/get/schedule"
+      },
+      {
+        "source": "/api/spotify/track/:value",
+        "destination": "https://jboxapp.fly.dev/api/spotify/track/:value"
+      },
+      {
+        "source": "/api/payment/id",
+        "destination": "https://jboxapp.fly.dev/api/payment/id"
+      },
+      {
+        "source": "/api/spotify/track/list/queue",
+        "destination": "https://jboxapp.fly.dev/api/spotify/track/list/queue"
+      },
+      {
+        "source": "/api/auth/test",
+        "destination": "https://jboxapp.fly.dev/api/auth/test"
+      }
     ]
-}
+  }
+  
