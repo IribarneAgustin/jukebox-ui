@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useRef, useCallback } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from '../../Assets/logo.png';
@@ -40,7 +40,22 @@ export default function AdminNavBar({ setCurrentSection }) {
     setNewNotificationsCount(0);
   };
 
-  const connect = () => {
+
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const response = await fetch("/api/notification/get");
+      if (response.ok) {
+        const data = await response.json();
+        setNotifications(data);
+      } else {
+        console.error('Failed to fetch notifications');
+      }
+    } catch (error) {
+      console.error('Error while fetching notifications:', error);
+    }
+  }, [setNotifications]);
+
+  const connect = useCallback(() => {
     const socket = new SockJS(API_WS_URL);
     const client = Stomp.over(socket);
     setStompClient(client);
@@ -56,21 +71,8 @@ export default function AdminNavBar({ setCurrentSection }) {
         }
       });
     });
-  };
+  }, [setStompClient, setNewNotificationsCount, setShowNotificationCount, fetchNotifications]);
 
-  const fetchNotifications = async () => {
-    try {
-      const response = await fetch("/api/notification/get");
-      if (response.ok) {
-        const data = await response.json();
-        setNotifications(data);
-      } else {
-        console.error('Failed to fetch notifications');
-      }
-    } catch (error) {
-      console.error('Error while fetching notifications:', error);
-    }
-  };
 
   function formatTime(isoTimestamp) {
     const date = new Date(isoTimestamp);
@@ -80,13 +82,13 @@ export default function AdminNavBar({ setCurrentSection }) {
   }
 
 
-  const disconnect = () => {
+  const disconnect = useCallback(() => {
     if (stompClient) {
       stompClient.disconnect(() => {
         console.log('Disconnected');
       });
     }
-  };
+  }, [stompClient]);
 
 
   useEffect(() => {
@@ -95,7 +97,8 @@ export default function AdminNavBar({ setCurrentSection }) {
     return () => {
       disconnect();
     };
-  }, []);
+  }, [connect, disconnect, fetchNotifications]);
+
 
 
   const handleNavigationItemClick = (section) => {
@@ -205,22 +208,23 @@ export default function AdminNavBar({ setCurrentSection }) {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <button
                             onClick={() => setCurrentSection('SupportSection')}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 cursor-pointer')}
                           >
                             Ayuda - Soporte
-                          </a>
+                          </button>
+
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <button
                             onClick={onLogoutClick}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 cursor-pointer')}
                           >
                             Cerrar Sesión
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
