@@ -35,13 +35,8 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        /*const responseData = await response.json();
-        const jwtToken = responseData.token;
-        localStorage.setItem('jwtToken', jwtToken);*/
         console.log('Login successfully');
-        //window.location.href = redirectURL.href;
         fetchQueryParams();
-
       } else if (response.status === 401) {
         setAlertMessage('Usuario o contraseña inválidos');
       } else {
@@ -56,15 +51,10 @@ const LoginForm = () => {
 
   async function fetchQueryParams() {
     try {
-      //const jwtToken = localStorage.getItem('jwtToken');
       const response = await fetch('/api/spotify/login', {
         method: 'GET',
         credentials: 'include',
-        /*headers: {
-          'Authorization': `Bearer ${jwtToken}`,
-        },*/
       });
-
       if (response.ok) {
         const queryParams = await response.text();
         const authorizationUrl = "https://accounts.spotify.com/authorize" + queryParams;
