@@ -19,7 +19,7 @@ const SettingsInstructionsSection = () => {
           <div>
             <h3 className="text-lg font-medium">Spotify</h3>
             <p className="text-white-500">Una vez logueado en JBox App su cuenta de Spotify ya está vinculada. Recuerde que siempre debe tener al menos un dispositivo con la aplicación de Spotify abierta mientras JBox App se encuentre en uso.</p>
-            <p>Por otro lado, si desea vincular una lista de reproducción especial para JBox App, solo debe seguir los pasos en la sección "Spotify" de la barra de navegación izquierda</p>
+            <p>Por otro lado, si desea vincular una lista de reproducción especial para JBox App, solo debe seguir los pasos en la sección "Spotify" de la barra de navegación</p>
           </div>
         </div>
 
@@ -27,7 +27,7 @@ const SettingsInstructionsSection = () => {
         <div className="flex items-center">
           <div>
             <h3 className="text-lg font-medium">Mercado Pago</h3>
-            <p className="text-white-500">Debe vincular su cuenta de Mercado Pago para recibir los pagos en su cuenta. Puede seguir los pasos de la sección "Mercado Pago" de la barra de navegación izquierda</p>
+            <p className="text-white-500">Debe vincular su cuenta de Mercado Pago para recibir los pagos en su cuenta. Puede seguir los pasos de la sección "Mercado Pago" de la barra de navegación</p>
           </div>
         </div>
 
