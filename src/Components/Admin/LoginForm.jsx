@@ -64,16 +64,17 @@ const LoginForm = () => {
           'Authorization': `Bearer ${jwtToken}`,
         },*/
       });
-  
-      const queryParams = await response.text();
-      const authorizationUrl = "https://accounts.spotify.com/authorize" + queryParams;
 
-      window.location.href = authorizationUrl;
+      if (response.ok) {
+        const queryParams = await response.text();
+        const authorizationUrl = "https://accounts.spotify.com/authorize" + queryParams;
+        window.location.href = authorizationUrl;
+      }
     } catch (error) {
       console.log(error);
     }
   }
-  
+
 
   return (
     <div
