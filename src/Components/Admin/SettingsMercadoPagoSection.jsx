@@ -21,8 +21,11 @@ const SettingsMercadoPagoSection = () => {
       });
 
       if (response.ok) {
-        console.log('Connected with Mercado Pago successfully');
-        openNotification('success', 'Conectado correctamente con Mercado Pago');
+        const queryParams = response.text;
+        const authorizationUrl = "https://auth.mercadopago.com.ar/authorization" + queryParams;
+        window.location.href = authorizationUrl;
+        //console.log('Connected with Mercado Pago successfully');
+        //openNotification('success', 'Conectado correctamente con Mercado Pago');
       } else {
         console.error('Failed to connect with Mercado Pago');
         openNotification('error', 'Ocurrió un error al conectarse con Mercado Pago');

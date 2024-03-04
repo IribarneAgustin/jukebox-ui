@@ -120,7 +120,7 @@ const MusicSearchAuto = () => {
         <div className="container mx-auto my-8 text-center">
           <h1 className="text-5xl font-extrabold mb-4 custom-bounce">JBox App</h1>
 
-          <div className="max-w-md mx-auto p-6 transition duration-300"> {/*bg-gradient-to-br from-purple-950 to-purple-800 rounded-md shadow-lg hover:shadow-xl */}
+          <div className="max-w-md mx-auto p-6 transition duration-300">
             <SearchInputAuto
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
