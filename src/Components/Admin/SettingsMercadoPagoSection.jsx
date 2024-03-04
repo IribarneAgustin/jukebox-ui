@@ -21,7 +21,7 @@ const SettingsMercadoPagoSection = () => {
       });
 
       if (response.ok) {
-        const queryParams = response.text;
+        const queryParams = await response.text();
         const authorizationUrl = "https://auth.mercadopago.com.ar/authorization" + queryParams;
         window.location.href = authorizationUrl;
         //console.log('Connected with Mercado Pago successfully');
