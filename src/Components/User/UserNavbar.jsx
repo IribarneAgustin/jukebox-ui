@@ -1,7 +1,7 @@
 import React from 'react';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from "../../Assets/logo.png"
+import logo from '../../Assets/logo.png';
 import { Link } from 'react-router-dom';
 
 const navigation = [
@@ -36,7 +36,7 @@ export default function UserNavbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/">
                     <img
-                      className="h-8 cursor-pointer"
+                      className="h-11 cursor-pointer"
                       src={logo}
                       alt="JBApp"
                     />

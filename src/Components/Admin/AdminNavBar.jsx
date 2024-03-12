@@ -130,7 +130,7 @@ export default function AdminNavBar({ setCurrentSection }) {
                 <div className="hidden sm:block flex flex-shrink-0 items-center">
                   <Link to="/">
                     <img
-                      className="h-8 w-auto cursor-pointer"
+                      className="h-11 w-auto cursor-pointer"
                       src={logo}
                       alt="JBox App"
                     />
