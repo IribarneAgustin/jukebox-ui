@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import backgroundImage from '../../Assets/login-form-background.jpg';
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({
@@ -8,6 +9,7 @@ const LoginForm = () => {
   });
 
   const [alertMessage, setAlertMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getUrlParameter = (name) => {
@@ -23,6 +25,8 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -46,15 +50,20 @@ const LoginForm = () => {
     } catch (error) {
       setAlertMessage('Ocurrió un error inesperado');
       console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   async function fetchQueryParams() {
     try {
+      setLoading(true);
+
       const response = await fetch('/api/spotify/login', {
         method: 'GET',
         credentials: 'include',
       });
+      
       if (response.ok) {
         const queryParams = await response.text();
         const authorizationUrl = "https://accounts.spotify.com/authorize" + queryParams;
@@ -62,9 +71,10 @@ const LoginForm = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
-
 
   return (
     <div
@@ -76,6 +86,8 @@ const LoginForm = () => {
       }}
     >
       <div className="max-w-md w-full">
+        {loading && <LoadingSpinner />} {/* Render LoadingSpinner when loading is true */}
+
         {alertMessage && (
           <div className="bg-red-500 text-white p-3 mb-4 flex items-center justify-center">
             <span className="mr-2">Error:</span>

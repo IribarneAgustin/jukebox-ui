@@ -24,13 +24,14 @@ const MonthlyBarChart = () => {
 
       if (response.ok) {
         const result = await response.json();
+        console.log(result)
 
         // Process the data to include all months with zero amounts
         const processedData = Array.from({ length: 12 }, (_, monthIndex) => {
           const existingEntry = result.totalAmountByMonth.find(entry => entry.month === monthIndex + 1);
           return {
             month: monthIndex + 1,
-            Facturado: existingEntry ? existingEntry.total_Amount : 0,
+            Facturado: existingEntry ? existingEntry.total_amount : 0,
           };
         });
 
