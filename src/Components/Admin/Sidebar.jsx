@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBook, FaSpotify, FaMoneyBillAlt, FaDollarSign, FaClock, FaHistory, FaChartBar, FaToggleOn } from 'react-icons/fa';
 
 const Sidebar = ({ setCurrentSection }) => {
   return (
@@ -9,7 +10,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('SettingsInstructionsSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Instrucciones
+            <FaBook className="mr-2" /> Instrucciones
           </button>
         </li>
         <li className="mb-2">
@@ -17,7 +18,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('SettingsPlaylistIdSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Spotify
+            <FaSpotify className="mr-2" /> Spotify
           </button>
         </li>
         <li className="mb-2">
@@ -25,7 +26,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('SettingsMercadoPagoSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Mercado Pago
+            <FaMoneyBillAlt className="mr-2" /> Mercado Pago
           </button>
         </li>
         <li className="mb-2">
@@ -33,7 +34,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('SettingsPriceSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Precio
+            <FaDollarSign className="mr-2" /> Precio
           </button>
         </li>
         <li className="mb-2">
@@ -41,7 +42,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('SettingsScheduleSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Horario
+            <FaClock className="mr-2" /> Horario
           </button>
         </li>
         <li className="mb-2">
@@ -49,7 +50,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('PaymentHistorySection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Historial de pagos
+            <FaHistory className="mr-2" /> Historial de pagos
           </button>
         </li>
         <li className="mb-2">
@@ -57,7 +58,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('SettingStatisticsSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Ganancias
+            <FaChartBar className="mr-2" /> Ganancias
           </button>
         </li>
         <li className="mb-2">
@@ -65,7 +66,7 @@ const Sidebar = ({ setCurrentSection }) => {
             onClick={() => setCurrentSection('SettingsEnableSection')}
             className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
           >
-            Activar/Desactivar
+            <FaToggleOn className="mr-2" /> Activar/Desactivar
           </button>
         </li>
       </ul>
