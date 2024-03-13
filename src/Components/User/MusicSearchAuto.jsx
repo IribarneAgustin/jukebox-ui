@@ -99,6 +99,7 @@ const MusicSearchAuto = () => {
     if (purchaseInProgress) {
       return;
     }
+    setLoading(true);
     setPurchaseInProgress(true);
 
     try {
@@ -110,6 +111,7 @@ const MusicSearchAuto = () => {
         window.location.href = paymentUrl;
       }
     } finally {
+      setLoading(false);
       setPurchaseInProgress(false);
     }
   };
