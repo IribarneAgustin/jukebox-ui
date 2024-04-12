@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import useLogout from '../Admin/Logout';
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const MonthlyBarChart = () => {
   const [data, setData] = useState([]);
@@ -8,6 +9,8 @@ const MonthlyBarChart = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const handleLogout = useLogout();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [loading, setLoading] = useState(true);
+
   const fetchYearData = async (year) => {
     try {
       const response = await fetch(`/api/transaction/get/amountByYear/${year}`, {
@@ -45,6 +48,8 @@ const MonthlyBarChart = () => {
       }
     } catch (error) {
       console.error(`Error fetching total amount for year ${year}:`, error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -72,6 +77,10 @@ const MonthlyBarChart = () => {
   };
 
   const monthNamesSpanish = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="text-center">

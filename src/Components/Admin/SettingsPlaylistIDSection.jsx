@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
 import useLogout from '../Admin/Logout'
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const SettingsPlaylistIdSection = () => {
   const [playlistId, setPlaylistId] = useState('');
   const handleLogout = useLogout();
+  const [loading, setLoading] = useState(true);
 
   const openNotification = (type, message, description) => {
     notification[type]({
@@ -73,11 +75,17 @@ const SettingsPlaylistIdSection = () => {
     } catch (error) {
       console.error('Error fetching playlist ID:', error);
       setPlaylistId('');
+    } finally {
+      setLoading(false)
     }
   };
 
   fetchPlaylistId();
 }, [handleLogout]);
+
+if (loading) {
+  return <LoadingSpinner />;
+}
 
 
   return (

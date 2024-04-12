@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
 import useLogout from '../Admin/Logout';
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const SettingsScheduleSection = () => {
   const [fromHour, setFromHour] = useState('');
   const [toHour, setToHour] = useState('');
   const handleLogout = useLogout();
+  const [loading, setLoading] = useState(true);
 
   const handleFromHourChange = (event) => {
     setFromHour(event.target.value);
@@ -69,11 +71,17 @@ const SettingsScheduleSection = () => {
       } catch (error) {
         console.error('Error fetching service schedule:', error);
         openNotification('error', 'Error', 'Ocurrió un error al obtener el horario de servicio');
+      } finally {
+        setLoading(false)
       }
     };
 
     fetchSchedule();
   }, [handleLogout]);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <section className="mb-8">

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Button, notification } from 'antd';
 import { PoweroffOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import useLogout from '../Admin/Logout'
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const SettingsEnableSection = () => {
   const [isActive, setIsActive] = useState(true);
   const handleLogout = useLogout();
+  const [loading, setLoading] = useState(true);
 
   const openNotification = (type) => {
     const message = isActive ? 'Aplicación desactivada' : 'Aplicación activada';
@@ -61,12 +63,17 @@ useEffect(() => {
       setIsActive(data.status);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
   fetchInitialStatus();
 }, [handleLogout]);
 
+if (loading) {
+  return <LoadingSpinner />;
+}
 
   return (
     <div className="settings-enable-section" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
