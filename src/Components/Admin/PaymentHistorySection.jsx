@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import useLogout from '../Admin/Logout'
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const PaymentHistorySection = () => {
   const [transactions, setTransactions] = useState([]);
@@ -8,6 +9,7 @@ const PaymentHistorySection = () => {
   const [transactionsPerPage] = useState(5);
   const [totalAmount, setTotalAmount] = useState(0);
   const handleLogout = useLogout();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTransactionHistory = async () => {
@@ -33,6 +35,8 @@ const PaymentHistorySection = () => {
         }
       } catch (error) {
         console.error('Error fetching transaction history:', error);
+      }  finally {
+        setLoading(false)
       }
     };
 
@@ -81,6 +85,10 @@ const PaymentHistorySection = () => {
   const handlePaginationChange = (page) => {
     setCurrentPage(page);
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <section className="mb-8">

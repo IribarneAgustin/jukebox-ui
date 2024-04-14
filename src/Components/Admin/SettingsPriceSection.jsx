@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
 import useLogout from '../Admin/Logout'
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const SettingsPriceSection = () => {
   const [trackPrice, setTrackPrice] = useState('');
   const handleLogout = useLogout();
+  const [loading, setLoading] = useState(true);
 
   const openNotification = (type, message, description) => {
     notification[type]({
@@ -68,11 +70,17 @@ const SettingsPriceSection = () => {
         }
       } catch (error) {
         console.error('Error fetching track price:', error);
+      } finally {
+        setLoading(false)
       }
     };
 
     fetchTrackPrice();
   }, [handleLogout]);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <section className="mb-8">
