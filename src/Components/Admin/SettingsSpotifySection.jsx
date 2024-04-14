@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
-import useLogout from '../Admin/Logout'
+import useLogout from './Logout'
 import LoadingSpinner from '../Utils/LoadingSpinner';
+import { API_BASE_URL } from '../Utils/Config';
 
-const SettingsPlaylistIdSection = () => {
+const SettingsSpotifySection = () => {
+  
   const [playlistId, setPlaylistId] = useState('');
   const handleLogout = useLogout();
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem('jwtToken');
 
   const openNotification = (type, message, description) => {
     notification[type]({
@@ -23,10 +26,11 @@ const SettingsPlaylistIdSection = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/admin/app/playlist/id', {
+      const response = await fetch(API_BASE_URL + '/api/admin/app/playlist/id', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         credentials: 'include',
         body: JSON.stringify({ playlistId }),
@@ -47,12 +51,16 @@ const SettingsPlaylistIdSection = () => {
     console.log('Submitted Playlist ID:', playlistId);
   };
 
+
   useEffect(() => {
   const fetchPlaylistId = async () => {
     try {
-      const response = await fetch('/api/admin/app/get/playlist/id', {
+      const response = await fetch(API_BASE_URL + '/api/admin/app/get/playlist/id', {
         method: 'GET',
         credentials: 'include',
+        headers:{
+          'Authorization': `Bearer ${token}`
+        }
       });
 
       if (response.status === 401) {
@@ -81,7 +89,32 @@ const SettingsPlaylistIdSection = () => {
   };
 
   fetchPlaylistId();
-}, [handleLogout]);
+}, []);
+
+const connectWithSpotify = async () => {
+  try {
+    setLoading(true);
+    const token = localStorage.getItem('jwtToken');
+
+    const response = await fetch(API_BASE_URL + '/api/spotify/login', {
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.ok) {
+      const queryParams = await response.text();
+      const authorizationUrl = "https://accounts.spotify.com/authorize" + queryParams;
+      window.location.href = authorizationUrl;
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
 if (loading) {
   return <LoadingSpinner />;
@@ -92,25 +125,21 @@ if (loading) {
     <section className="mb-8">
       <h2 className="text-2xl font-semibold mb-4">Spotify</h2>
 
-
       <p className="mb-4">
-        Una vez logueado, su cuenta de Spotify ya está vinculada con JBox App.  
+        Para vincular su cuenta de Spotify debe presionar el siguiente botón y aceptar los permisos solicitados:
       </p>
+      <button
+        type="button"
+        onClick={connectWithSpotify}
+        className={`mt-4 bg-blue-500 text-white p-2 mb-3 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+        disabled={loading}
+      >              
+      Conectar con Spotify
+      </button>
+      <br></br>
       <p className="mb-4">
-        Cuando un cliente solicite una canción, esta será encolada y si usted desea puede guardarlas en una lista de reproducción.
+        También, si desea guardar las canciones en un playlist exclusivo, debe pegar la url del mismo a continuación: 
       </p>
-
-      <p className="mb-4">
-        Solo debe seguir los siguientes pasos para vincular la lista de reproducción deseada:
-      </p>
-
-      <ol className="mb-4">
-        <li>• Abre Spotify y busca la lista de reproducción que deseas usar.</li>
-        <li>• Haz clic en los tres puntos (Más opciones) junto al nombre de la lista.</li>
-        <li>• Haz clic en "Compartir" y selecciona "Copiar URI de Spotify" o "Copiar enlace de la lista".</li>
-        <li>• Pega el enlace aquí para extraer el ID de la lista de reproducción.</li>
-      </ol>
-
       <form onSubmit={handleSubmit}>
         <label className="block mb-2" htmlFor="playlistId">
           Spotify Playlist:
@@ -122,7 +151,7 @@ if (loading) {
           value={playlistId}
           onChange={handleInputChange}
           className="border border-gray-300 p-2 w-full text-black"
-          placeholder="Pega tu Spotify Playlist ID aquí"
+          placeholder="Ejemplo: https://open.spotify.com/playlist/1EObkfZvl60Q3zfV3FYD00?si=3b981bf4277a479d"
         />
         <button type="submit" className="mt-4 bg-blue-500 text-white p-2 rounded">
           Guardar
@@ -134,4 +163,4 @@ if (loading) {
   );
 };
 
-export default SettingsPlaylistIdSection;
+export default SettingsSpotifySection;

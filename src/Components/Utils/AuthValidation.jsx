@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../Utils/Config';
 
 const authValidation = (WrappedComponent) => {
   const AuthWrapper = (props) => {
@@ -19,9 +20,13 @@ const authValidation = (WrappedComponent) => {
 
   const checkAuthentication = async (navigate) => {
     try {
-      const response = await fetch('/api/auth/test', {
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(API_BASE_URL + '/api/auth/test', {
         method: 'GET',
         credentials: 'include',
+        headers:{
+          'Authorization': `Bearer ${token}`
+        }
       });
       
       console.log(response)

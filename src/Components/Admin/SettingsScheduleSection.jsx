@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
 import useLogout from '../Admin/Logout';
 import LoadingSpinner from '../Utils/LoadingSpinner';
+import { API_BASE_URL } from '../Utils/Config';
 
 const SettingsScheduleSection = () => {
   const [fromHour, setFromHour] = useState('');
   const [toHour, setToHour] = useState('');
   const handleLogout = useLogout();
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem('jwtToken');
 
   const handleFromHourChange = (event) => {
     setFromHour(event.target.value);
@@ -28,11 +30,12 @@ const SettingsScheduleSection = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/admin/app/schedule', {
+      const response = await fetch(API_BASE_URL + '/api/admin/app/schedule', {
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ fromHour, toHour }),
       });
@@ -53,9 +56,12 @@ const SettingsScheduleSection = () => {
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const response = await fetch('/api/admin/app/get/schedule', {
+        const response = await fetch(API_BASE_URL + '/api/admin/app/get/schedule', {
           method: 'GET',
           credentials: 'include',
+          headers:{
+            'Authorization': `Bearer ${token}`
+          }
         });
         if (response.status === 401) {
           handleLogout();

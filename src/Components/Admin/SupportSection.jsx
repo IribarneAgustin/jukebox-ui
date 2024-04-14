@@ -10,7 +10,7 @@ const SupportSection = () => {
       <div className="mb-4">
         <h3 className="text-xl font-semibold mb-2">Email:</h3>
         <p>
-          Envíenos un correo electrónico a <a className="text-blue-400" href="mailto:soporte@tudominio.com">soporte@tudominio.com</a>
+          Envíenos un correo electrónico a <a className="text-blue-400" href="mailto:contacto@jboxapp.com">contacto@jboxapp.com</a>
         </p>
       </div>
     </div>

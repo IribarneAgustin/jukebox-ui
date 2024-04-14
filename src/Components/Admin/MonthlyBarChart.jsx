@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import useLogout from '../Admin/Logout';
 import LoadingSpinner from '../Utils/LoadingSpinner';
+import { API_BASE_URL } from '../Utils/Config';
 
 const MonthlyBarChart = () => {
   const [data, setData] = useState([]);
@@ -13,10 +14,12 @@ const MonthlyBarChart = () => {
 
   const fetchYearData = async (year) => {
     try {
-      const response = await fetch(`/api/transaction/get/amountByYear/${year}`, {
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(API_BASE_URL + `/api/transaction/get/amountByYear/${year}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         credentials: 'include',
       });
@@ -34,7 +37,7 @@ const MonthlyBarChart = () => {
           const existingEntry = result.totalAmountByMonth.find(entry => entry.month === monthIndex + 1);
           return {
             month: monthIndex + 1,
-            Facturado: existingEntry ? existingEntry.total_amount : 0,
+            Facturado: existingEntry ? existingEntry.total_Amount : 0,
           };
         });
 

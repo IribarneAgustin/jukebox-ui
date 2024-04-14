@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
 import UserLayout from './UserLayout';
+import { API_BASE_URL } from '../Utils/Config';
 
 const TrackQueue = () => {
   const [enqueuedTracks, setEnqueuedTracks] = useState([]);
@@ -8,19 +9,20 @@ const TrackQueue = () => {
   useEffect(() => {
     const fetchEnqueuedTracks = async () => {
       try {
-        const response = await fetch('/api/spotify/track/list/queue');
+        const response = await fetch(API_BASE_URL + '/api/spotify/track/list/queue');
         const data = await response.json();
         setEnqueuedTracks(data);
 
         // Check for message in URL
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get('message');
-
+        
         if (message) {
-          // Display notification with the message
+          const decodedMessage = decodeURIComponent(message);
+          // Display notification with the decoded message
           notification.success({
-            message: 'Canción agregada a la cola!',
-            description: message,
+            message: '¡Canción agregada a la cola!',
+            description: decodedMessage,
           });
         }
       } catch (error) {

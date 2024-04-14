@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import backgroundImage from '../../Assets/login-form-background.jpg';
 import LoadingSpinner from '../Utils/LoadingSpinner';
+import { API_BASE_URL } from '../Utils/Config';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({
@@ -10,6 +12,7 @@ const LoginForm = () => {
 
   const [alertMessage, setAlertMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUrlParameter = (name) => {
@@ -27,7 +30,7 @@ const LoginForm = () => {
     try {
       setLoading(true);
 
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(API_BASE_URL + '/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,8 +42,11 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
+        const authResponse = await response.json();
+        const jwtToken = authResponse.token;
+        localStorage.setItem('jwtToken', jwtToken);
         console.log('Login successfully');
-        fetchQueryParams();
+        navigate('/admin/dashboard');
       } else if (response.status === 401) {
         setAlertMessage('Usuario o contraseña inválidos');
       } else {
@@ -55,26 +61,6 @@ const LoginForm = () => {
     }
   };
 
-  async function fetchQueryParams() {
-    try {
-      setLoading(true);
-
-      const response = await fetch('/api/spotify/login', {
-        method: 'GET',
-        credentials: 'include',
-      });
-      
-      if (response.ok) {
-        const queryParams = await response.text();
-        const authorizationUrl = "https://accounts.spotify.com/authorize" + queryParams;
-        window.location.href = authorizationUrl;
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   return (
     <div
