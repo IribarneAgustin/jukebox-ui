@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from '../../Assets/logo.png';
 import { Link } from 'react-router-dom';
-import { API_WS_URL } from '../Utils/Config';
+import { API_WS_URL, API_BASE_URL } from '../Utils/Config';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import useLogout from '../Admin/Logout'
@@ -60,7 +60,14 @@ export default function AdminNavBar({ setCurrentSection }) {
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch("/api/notification/get");
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(API_BASE_URL + "/api/notification/get",
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          credentials: 'include'
+        });
       if (response.ok) {
         const data = await response.json();
         setNotifications(data);
@@ -243,7 +250,7 @@ export default function AdminNavBar({ setCurrentSection }) {
                     </li>
                     <li className="mb-2">
                       <button
-                        onClick={() => handleNavigationItemClick('SettingsPlaylistIdSection')}
+                        onClick={() => handleNavigationItemClick('SettingsSpotifySection')}
                         className="flex items-center px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
                       >
                         Spotify

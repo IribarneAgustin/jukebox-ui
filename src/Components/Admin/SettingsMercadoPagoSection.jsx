@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { notification } from 'antd';
+import { API_BASE_URL } from '../Utils/Config';
 
 const SettingsMercadoPagoSection = () => {
   const [loading, setLoading] = useState(false);
@@ -15,9 +16,14 @@ const SettingsMercadoPagoSection = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/mp/login', {
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(API_BASE_URL + '/api/mp/login', {
         method: 'GET',
         credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
       });
 
       if (response.ok) {

@@ -5,6 +5,7 @@ import LoadingSpinner from '../Utils/LoadingSpinner'
 import UserLayout from './UserLayout';
 import { notification } from 'antd';
 import _debounce from 'lodash/debounce';
+import { API_BASE_URL } from '../Utils/Config';
 
 const MusicSearchAuto = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,7 +18,7 @@ const MusicSearchAuto = () => {
   const searchMusic = async (value) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/spotify/track/${value}`);
+      const response = await fetch(API_BASE_URL + `/api/spotify/track/${value}`);
       const data = await response.json();
       if (response.ok) {
         setSuggestions(data);
@@ -57,7 +58,7 @@ const MusicSearchAuto = () => {
     };
     const paymentGateway = "Mercado Pago";
     try {
-      const response = await fetch("/api/payment/id", {
+      const response = await fetch(API_BASE_URL + "/api/payment/id", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -5,7 +5,7 @@ import SettingStatisticsSection from './SettingsStatisticsSection';
 import SettingsPriceSection from './SettingsPriceSection';
 import SettingsScheduleSection from './SettingsScheduleSection'
 import SettingsInstructionsSection from './SettingsInstructionsSection';
-import SettingsPlaylistIdSection from './SettingsPlaylistIDSection';
+import SettingsSpotifySection from './SettingsSpotifySection';
 import PaymentHistorySection from './PaymentHistorySection';
 import SettingsEnableSection from './SettingsEnableSection'
 import SupportSection from './SupportSection'
@@ -40,8 +40,8 @@ const AdminPanel = () => {
         switch (currentSection) {
             case 'SettingsInstructionsSection':
                 return <SettingsInstructionsSection />;
-            case 'SettingsPlaylistIdSection':
-                return <SettingsPlaylistIdSection />;
+            case 'SettingsSpotifySection':
+                return <SettingsSpotifySection />;
             case 'SettingsPriceSection':
                 return <SettingsPriceSection />;
             case 'SettingsScheduleSection':

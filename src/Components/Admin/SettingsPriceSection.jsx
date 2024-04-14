@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
 import useLogout from '../Admin/Logout'
 import LoadingSpinner from '../Utils/LoadingSpinner';
+import { API_BASE_URL } from '../Utils/Config';
 
 const SettingsPriceSection = () => {
   const [trackPrice, setTrackPrice] = useState('');
   const handleLogout = useLogout();
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem('jwtToken');
 
   const openNotification = (type, message, description) => {
     notification[type]({
@@ -23,10 +25,11 @@ const SettingsPriceSection = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/admin/track/price', {
+      const response = await fetch(API_BASE_URL + '/api/admin/track/price', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         credentials: 'include',
         body: JSON.stringify({ trackPrice }),
@@ -48,9 +51,12 @@ const SettingsPriceSection = () => {
   useEffect(() => {
     const fetchTrackPrice = async () => {
       try {
-        const response = await fetch('/api/admin/track/get/price', {
+        const response = await fetch(API_BASE_URL + '/api/admin/track/get/price', {
           method: 'GET',
           credentials: 'include',
+          headers:{
+            'Authorization': `Bearer ${token}`
+          }
         });
 
         if (response.status === 401) {

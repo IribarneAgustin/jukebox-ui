@@ -22,10 +22,10 @@ export default function UserLayout({ children }) {
           &copy; {currentYear} JBox App - Todos los derechos reservados.
         </div>
         <div className="flex mt-2">
-          <a href="https://www.instagram.com/your_instagram_username" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/jboxapp/" target="_blank" rel="noopener noreferrer">
             <FaInstagram className="text-white mx-2" />
           </a>
-          <a href="mailto:your.email@example.com">
+          <a href="mailto:contacto@jboxapp.com">
             <FaEnvelope className="text-white mx-2" />
           </a>
         </div>

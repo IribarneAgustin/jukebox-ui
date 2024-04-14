@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import useLogout from '../Admin/Logout'
 import LoadingSpinner from '../Utils/LoadingSpinner';
+import { API_BASE_URL } from '../Utils/Config';
 
 const PaymentHistorySection = () => {
   const [transactions, setTransactions] = useState([]);
@@ -14,9 +15,13 @@ const PaymentHistorySection = () => {
   useEffect(() => {
     const fetchTransactionHistory = async () => {
       try {
-        const response = await fetch('/api/transaction/get', {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(API_BASE_URL + '/api/transaction/get', {
           method: 'GET',
           credentials: 'include',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
 
         if (response.status === 401) {
@@ -41,7 +46,7 @@ const PaymentHistorySection = () => {
     };
 
     fetchTransactionHistory();
-  }, []);
+  }, [handleLogout]);
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);

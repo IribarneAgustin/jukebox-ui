@@ -1,16 +1,19 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../Utils/Config';
 
 const useLogout = () => {
   const navigate = useNavigate();
 
   const handleLogout = useCallback(async () => {
     try {
-      const response = await fetch('/api/auth/logout', {
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(API_BASE_URL + '/api/auth/logout', {
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
       });
       if (response.ok) {
