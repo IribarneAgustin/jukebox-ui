@@ -17,12 +17,10 @@ const TrackQueue = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get('message');
         
-        if (message) {
-          const decodedMessage = decodeURIComponent(message);
-          // Display notification with the decoded message
+        if (message === 'OK') {
+          // Display success notification
           notification.success({
-            message: '¡Canción agregada a la cola!',
-            description: decodedMessage,
+            message: '¡Canción agregada a la cola!'
           });
         }
       } catch (error) {
@@ -32,6 +30,14 @@ const TrackQueue = () => {
 
     fetchEnqueuedTracks();
   }, []);
+
+
+  function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
 
   return (
     <div className="bg-opacity-70 text-white min-h-screen">
@@ -55,6 +61,11 @@ const TrackQueue = () => {
                         </h3>
                       </div>
                     </div>
+                    <div>
+                        <h3 className="font-semibold">
+                          {formatTimestamp(track.addedAt)}
+                        </h3>
+                      </div>
                   </div>
                 </li>
               ))}
